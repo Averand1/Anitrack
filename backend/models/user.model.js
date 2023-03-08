@@ -1,9 +1,10 @@
 require('dotenv').config();
-
 const { Sequelize, DataTypes } = require('sequelize');
+const crypto = require('crypto');
+
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
-    dialect: 'mysql' /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
+    dialect: 'mysql'
 });
 
 const User = sequelize.define('user', {
@@ -14,7 +15,7 @@ const User = sequelize.define('user', {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      Unique: true
+      unique: true
     },
     email: {
       type: DataTypes.STRING,
@@ -24,9 +25,18 @@ const User = sequelize.define('user', {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    SALT: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
-    timestamps: false
-  });
+    timestamps: false,
+});
 
-module.exports = User; 
+User.prototype.validPassword = function(password, salt, userPassword) {
+  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+  return hash === userPassword
+}
+
+module.exports = User;
