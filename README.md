@@ -8,7 +8,7 @@
 
 Here're some of the project's best features:
 
-*   User Authentication and Registration (Soon to be added)
+*   User Authentication and Registration 🟢
 *   Search for anime by title (Soon to be added)
 *   Add anime to your watch list (soon to be added)
 *   Filter anime (Soon to be added)
