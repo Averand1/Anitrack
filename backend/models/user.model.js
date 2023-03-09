@@ -29,6 +29,10 @@ const User = sequelize.define('user', {
     SALT: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    session_data: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   }, {
     timestamps: false,

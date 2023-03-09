@@ -8,8 +8,7 @@ db.authenticate()
   .then(() => console.log('Database connected...'))
   .catch(err => console.log('Error:', err));
 
-const app = express();
-
+const app = module.exports = express();
 // enable CORS
 app.use(cors());
 
