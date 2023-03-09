@@ -1,7 +1,9 @@
-const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
+
 function validPassword(password) {
-    const salt = crypto.randomBytes(16).toString('hex');
-    const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-    return { salt, hash };
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
+  return { salt, hash };
 }
-module.exports = {validPassword}
+
+module.exports = {validPassword};
