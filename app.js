@@ -1,6 +1,8 @@
 const express = require('express');
+const session = require('express-session')
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const sessionMiddleware =  require('./backend/middleware/session')
 const db = require('./backend/config/db.config');
 
 // connect to the database
@@ -10,6 +12,7 @@ db.authenticate()
 
 const app = express();
 
+app.use(sessionMiddleware)
 // enable CORS
 app.use(cors());
 

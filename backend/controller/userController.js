@@ -1,7 +1,8 @@
 const { validPassword } = require('../middleware/validPassword')
 const User = require('../models/user.model')
+require('dotenv').config('../../.env')
 
-exports.signup = (req, res) => {
+exports.signup = async (req, res) => {
     const { username, email } = req.body
     const { salt, hash } = validPassword(req.body.password);
 
@@ -9,45 +10,82 @@ exports.signup = (req, res) => {
         username,
         email,
         password: hash,
-        SALT: salt
-    })
+        SALT: salt,
+        session_data: JSON.stringify(req.session)
 
-    newUser.save()
-        .then((user) => {
-            res.status(200).json({ message: 'User created successfully' })
+    })
+    try {
+        await newUser.save();
+        res.status(200).json({
+            message: "User created successfully"
         })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({ message: 'User was not created, please check your information again' })
+
+    }  catch (err) {
+        res.status(404).json({
+            message: 'User was not created, please check your information'
         })
+
+    } 
 }
 
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
     let message = []
     let success = false
     let status = 404
-    User.findOne({
-        where: {
-            'email': req.body.email,
-        }
-    }).then(function (user) {
+    try {
+        const user = await User.findOne({
+          where: {
+            email: req.body.email,
+          },
+        });
         if (user) {
-            message.push('User found')
-            if (User.prototype.validPassword(req.body.password, user.SALT, user.password)) {
-                status = 200;
-                success = true;
-                message.push('You are authorized');
-            }  else {
-                message.push('Wrong Pass')
-            }
-        } else {
-            message.push('Check credentials')
-        }
+          message.push('User found');
+          if (validPassword(req.body.password, user.SALT, user.password)) {
 
+            const sessionData = JSON.parse(user.session_data);
+            sessionData.isLoggedIn = true;
+            user.session_data = JSON.stringify(sessionData);
+            req.session.user = user;
+
+            await user.save();
+            status = 200;
+            success = true;
+            message.push('You are authorized');
+          } else {
+            message.push('Wrong Pass');
+          }
+        } else {
+          message.push('Check credentials');
+        }
         res.json({
-            status,
-            success,
-            message
-        })
-    })
+          status,
+          success,
+          message,
+        });
+      } catch (err) {
+        res.status(500).json({
+          message: 'Error logging in',
+        });
+      }
 }
+
+exports.logout = (req, res) => {
+    if (req.session?.user) {
+      req.session.destroy((err) => {
+        if (err) {
+          res.status(500).json({
+            message: 'Error logging out',
+          });
+        } else {
+          res.status(200).json({
+            message: 'Logged out successfully',
+          });
+        }
+      });
+    } else {
+      res.status(500).json({
+        message: 'No user session found',
+      });
+    }
+
+};

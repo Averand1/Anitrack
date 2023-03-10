@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
-const crypto = require('crypto');
+const bcrypt = require('bcryptjs')
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
@@ -29,14 +29,18 @@ const User = sequelize.define('user', {
     SALT: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    session_data: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     timestamps: false,
 });
 
 User.prototype.validPassword = function(password, salt, userPassword) {
-  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-  return hash === userPassword
+  const hash = bcrypt.hashSync(password, salt);
+  return bcrypt.compareSync(userPassword, hash);
 }
 
 module.exports = User;
