@@ -1,9 +1,12 @@
 const express = require('express');
 const session = require('express-session')
+const userRouter = require('./backend/routes/userRoutes')
+const animeRouter = require('./backend/routes/animeRoutes')
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const sessionMiddleware =  require('./backend/middleware/session')
 const db = require('./backend/config/db.config');
+const { anime } = require('./backend/controller/animeController');
 
 // connect to the database
 db.authenticate()
@@ -23,7 +26,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
-app.use('/api/user', require('./backend/routes/userRoutes'));
+app.use('/api', userRouter);
+app.use('/api', animeRouter)
 
 // start the server
 const PORT = process.env.PORT || 5000;
