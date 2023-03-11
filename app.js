@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
-app.use('/api/user', require('./backend/routes/userRoutes'));
+app.use('/api/user', require('./backend/routes/userRoutes'), require('./backend/routes/animeRoutes'));
 
 // start the server
 const PORT = process.env.PORT || 5000;
