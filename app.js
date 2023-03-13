@@ -1,5 +1,4 @@
 const express = require('express');
-const session = require('express-session')
 const profileRouter = require('./backend/routes/profileRoutes')
 const userRouter = require('./backend/routes/userRoutes')
 const animeRouter = require('./backend/routes/animeRoutes')
@@ -7,7 +6,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const sessionMiddleware =  require('./backend/middleware/session')
 const db = require('./backend/config/db.config');
-const { anime } = require('./backend/controller/animeController');
 
 // connect to the database
 db.authenticate()
