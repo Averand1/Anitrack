@@ -12,16 +12,26 @@ const Profile = sequelize.define('profile', {
       primaryKey: true,
       autoIncrement: true
     },
-    profile_id: {
+    first_name: {
+      type: DataTypes.STRING,
+      defaultValue: null,
+    },
+    last_name: {
+      type: DataTypes.STRING,
+      defaultValue: null,
+    },
+    user_id: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    name: {
-        type: DataTypes.SMALLINT,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
-    age: {
-        type:DataTypes.INTEGER
-    },
+    birthdate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    }
   },
   {
     timestamps: false
