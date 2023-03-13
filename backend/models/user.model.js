@@ -8,7 +8,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 });
 
 const User = sequelize.define('user', {
-    user_id: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
@@ -25,6 +25,10 @@ const User = sequelize.define('user', {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    birthdate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
     },
     SALT: {
       type: DataTypes.STRING,
