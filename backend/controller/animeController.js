@@ -12,7 +12,7 @@ exports.anime = async (req, res) => {
         res.status(403).json({ error: 'Forbidden' });
       }
     } catch (error) {
-      console.error(error);
+
       res.status(500).json({ error: 'Server error' });
     }
 }
