@@ -1,15 +1,18 @@
 const { validPassword } = require('../middleware/validPassword')
+const moment = require('moment')
 const User = require('../models/user.model')
 require('dotenv').config('../../.env')
 
 exports.signup = async (req, res) => {
-    const { username, email } = req.body
+    const { username, email, birthdate } = req.body
     const { salt, hash } = validPassword(req.body.password);
+    const formattedBirthDate = moment(birthdate, 'DD/MM/YYYY').format('YYYY-MM-DD')
 
     const newUser = new User({
         username,
         email,
         password: hash,
+        birthdate: formattedBirthDate,
         SALT: salt,
         session_data: JSON.stringify(req.session)
 
@@ -21,6 +24,7 @@ exports.signup = async (req, res) => {
         })
 
     }  catch (err) {
+      console.log(err)
         res.status(404).json({
             message: 'User was not created, please check your information'
         })
