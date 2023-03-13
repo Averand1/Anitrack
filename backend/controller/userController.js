@@ -24,8 +24,7 @@ exports.signup = async (req, res) => {
         })
 
     }  catch (err) {
-      console.log(err)
-        res.status(404).json({
+        res.status(500).json({
             message: 'User was not created, please check your information'
         })
 
