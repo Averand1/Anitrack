@@ -2,6 +2,7 @@ const express = require('express');
 const profileRouter = require('./backend/routes/profileRoutes')
 const userRouter = require('./backend/routes/userRoutes')
 const animeRouter = require('./backend/routes/animeRoutes')
+const starredRouter = require('./backend/routes/starredRoutes')
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const sessionMiddleware =  require('./backend/middleware/session')
@@ -28,6 +29,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', userRouter);
 app.use('/api', animeRouter);
 app.use('/api', profileRouter);
+app.use('/api', starredRouter);
+
 // start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
