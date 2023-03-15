@@ -5,45 +5,49 @@ const Anime = require('./anime.model')
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
-    dialect: 'mysql' /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
+    dialect: 'mysql' 
 });
 
-const AnimeStarred = sequelize.define('anime_starred', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      unique: true
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'user',
-        key: 'user_id',
-        onDelete: 'CASCADE'
-      }
-    },
-    anime_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true,
-      references: {
-        model: 'anime',
-        key: 'id',
-        onDelete: 'CASCADE'
-      }
-    },
-    isStarred: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
+const starredAnime = sequelize.define('starred_animes', {
+  user_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'user',
+      key: 'user_id',
+      onDelete: 'CASCADE'
     }
-},
-{
-    timestamps: false
+  },
+  rating: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+  }, 
+  anime_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    unique: true,
+    references: {
+      model: 'anime',
+      key: 'id',
+      onDelete: 'CASCADE'
+    }
+  },
+  starred: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+    defaultValue: false,
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: null,
+  }
+}, {
+  timestamps: false,
+  foreignKey: 'user_id'
 });
 
-AnimeStarred.belongsTo(User, { foreignKey: 'user_id' });
-AnimeStarred.belongsTo(Anime, { foreignKey: 'id' });
-
-module.exportds = AnimeStarred
+starredAnime.removeAttribute('id')
+starredAnime.belongsTo(User, { foreignKey: 'user_id' });
+starredAnime.belongsTo(Anime, { foreignKey: 'id' });
+module.exports = starredAnime;
