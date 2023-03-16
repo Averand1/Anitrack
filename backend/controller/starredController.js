@@ -9,9 +9,10 @@ exports.starAnime = async (req, res ) => {
           return res.status(401).json({ message: 'You must be logged in to star an anime.' });
         }
     
-        const { title, rating } = req.body;
+        const { title, rating, action} = req.body;
         const animeTitle = title;
         const userRated = rating;
+        const userAction = action;
     
         // Find the anime record based on the title
         const anime = await Anime.findOne({
@@ -32,8 +33,15 @@ exports.starAnime = async (req, res ) => {
             anime_id: anime.id,
           },
         });
-    
-        if (existingStarredAnime) {
+
+        if (existingStarredAnime && userAction === "unstar") {
+          // If the anime is already starred, update the starred status to false (don't delete)
+          existingStarredAnime.starred = false;
+          existingStarredAnime.rating = 0;
+          await existingStarredAnime.save();
+
+          return res.status(200).json({ message: 'Anime unstarred successfully.' });
+        } else if (existingStarredAnime) {
           // If the anime is already starred, update the rating and starred status
           if (existingStarredAnime.rating === userRated) {
             // If the rating is the same, return success message without updating
@@ -60,49 +68,4 @@ exports.starAnime = async (req, res ) => {
       } catch (error) {
         res.status(500).json({ message: 'An error occurred while starring anime.' });
       }
-};
-    
-
-// POST /unstarred_anime
-exports.unstarAnime = async (req, res) => {
-    try {
-        // Check if the user is logged in
-        if (!req.session.user) {
-          return res.status(401).json({ message: 'You must be logged in to unstar an anime.' });
-        }
-    
-        const { title } = req.body;
-        const animeTitle = title;
-    
-        // Find the anime record based on the title
-        const anime = await Anime.findOne({
-          where: {
-            title: animeTitle,
-          },
-        });
-    
-        // Check if the anime exists
-        if (!anime) {
-          return res.status(404).json({ message: 'Anime not found.' });
-        }
-    
-        // Find the starred anime record for the user and anime
-        const unstarredAnime = await userStarredAnime.findOne({
-          where: {
-            user_id: req.session.user.id,
-            anime_id: anime.id,
-          },
-        });
-    
-        if (unstarredAnime) {
-          // If the starred anime record exists, update the starred status to false (don't delete)
-          unstarredAnime.starred = false;
-          await unstarredAnime.save();
-        }
-    
-        res.status(200).json({ message: 'Anime unstarred successfully.' });
-      } catch (error) {
-        res.status(500).json({ message: 'An error occurred while unstarring anime.' });
-      }
-
 };
