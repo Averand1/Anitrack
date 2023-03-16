@@ -4,5 +4,6 @@ const starredController = require('../controller/starredController')
 
 
 router.post('/star', starredController.starAnime)
+router.get('/mylist', starredController.starredList)
 
 module.exports = router;
