@@ -70,3 +70,25 @@ exports.starAnime = async (req, res ) => {
         res.status(500).json({ message: 'An error occurred while starring anime.' });
       }
 };
+
+exports.starredList = async (req, res) => {
+  if(!req.session.user) {
+    return res.status(401).json({ message: 'You must be logged to fetch your anime list.' });
+  }
+
+  const pageSize = parseInt(req.query.pageSize) || 1; 
+  const page = parseInt(req.query.page) || 1; 
+  const offset = (page - 1) * pageSize; 
+
+  try {
+    const starredAnime = await userStarredAnime.findAll({
+      where: {user_id: req.session.user.id, starred: true},
+      limit: pageSize,
+      offset: offset
+    })
+    return res.status(200).json(starredAnime);
+  } catch (err) {
+    return res.status(500).json({ message: 'Server error' });
+  }
+
+}
