@@ -3,7 +3,7 @@ const router = express.Router();
 const animeController = require('../controller/animeController')
 
 
-router.get('/login/anime', animeController.anime)
 router.get('/anime', animeController.anime )
+router.post('/add', animeController.addAnimeList)
 
 module.exports = router;
