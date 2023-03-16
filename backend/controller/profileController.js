@@ -15,10 +15,10 @@ exports.getProfile = async (req, res) => {
           const formattedBirthdate = moment(profile.birthdate).format('DD/MM/YYYY');
           res.status(200).json({ data: { ...profile.toJSON(), birthdate: formattedBirthdate } });
         } else {
-          res.status(404).json({ message: 'User not found' });
+          res.status(403).json({ message: 'User not found' });
         }
       } catch (err) {
-        res.status(403).json({ message: 'Be sure to log in' });
+        res.status(500).json({ message: 'Be sure to log in' });
       }
 };
 
@@ -44,9 +44,9 @@ exports.updateProfle = async (req, res) => {
     
           res.status(200).json({ message: 'User profile updated successfully' });
         } else {
-          res.status(404).json({ message: 'User not found' });
+          res.status(403).json({ message: 'User not found' });
         }
       } catch (err) {
-        res.status(403).json({ message: 'Make sure to be logged in to Update Profile' });
+        res.status(500).json({ message: 'Make sure to be logged in to Update Profile' });
     }
 };
