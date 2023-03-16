@@ -37,6 +37,10 @@ const User = sequelize.define('user', {
     session_data: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    role: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   }, {
     timestamps: false,
