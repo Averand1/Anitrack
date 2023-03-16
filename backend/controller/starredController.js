@@ -36,8 +36,8 @@ exports.starAnime = async (req, res ) => {
 
         if (existingStarredAnime && userAction === "unstar") {
           // If the anime is already starred, update the starred status to false (don't delete)
-          existingStarredAnime.starred = false;
           existingStarredAnime.rating = 0;
+          existingStarredAnime.starred = false;
           await existingStarredAnime.save();
 
           return res.status(200).json({ message: 'Anime unstarred successfully.' });
