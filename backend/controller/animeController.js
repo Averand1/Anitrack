@@ -16,3 +16,17 @@ exports.anime = async (req, res) => {
       res.status(500).json({ error: 'Server error' });
     }
 }
+
+exports.addAnimeList = async (req, res) => {
+  if (req.session.user && req.session.user.role === 10) {
+    const { animeList } = req.body;
+    try {
+      const newAnimeList = await Anime.bulkCreate(animeList);
+      return res.status(200).json({ message: 'Anime list added successfully.', animeList: newAnimeList });
+    } catch (err) {
+      return res.status(500).json({ message: 'Server error' });
+    }
+  } else {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+};
