@@ -43,6 +43,7 @@ exports.starAnime = async (req, res ) => {
           return res.status(200).json({ message: 'Anime unstarred successfully.' });
         } else if (existingStarredAnime) {
           // If the anime is already starred, update the rating and starred status
+          existingStarredAnime.starred = true;
           if (existingStarredAnime.rating === userRated) {
             // If the rating is the same, return success message without updating
             return res.status(200).json({ message: 'Anime already starred with same rating.' });
