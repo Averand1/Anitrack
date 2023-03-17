@@ -97,7 +97,6 @@ exports.makeAdmin = async (req, res) => {
   if (req.session.user && req.session.user.role === 10) {
     try {
     const userId = req.query.userId; 
-    console.log(userId)
       const user = await User.findOne({ where: { id: userId } });
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
