@@ -104,7 +104,7 @@ exports.makeAdmin = async (req, res) => {
       await user.update({ role: 10 }); // Update the user's Role to 10
       return res.status(200).json({ message: 'User role updated successfully' });
     } catch (err) {
-      console.error(err)
+
       return res.status(500).json({ message: 'Server error' });
     }
   } else {
