@@ -92,3 +92,23 @@ exports.logout = (req, res) => {
     }
 
 };
+
+exports.makeAdmin = async (req, res) => {
+  if (req.session.user && req.session.user.role === 10) {
+    try {
+    const userId = req.query.userId; 
+    console.log(userId)
+      const user = await User.findOne({ where: { id: userId } });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      await user.update({ role: 10 }); // Update the user's Role to 10
+      return res.status(200).json({ message: 'User role updated successfully' });
+    } catch (err) {
+      console.error(err)
+      return res.status(500).json({ message: 'Server error' });
+    }
+  } else {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+}
