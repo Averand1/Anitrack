@@ -5,7 +5,7 @@ const Anime = require('./anime.model')
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
-    dialect: 'mysql' 
+    dialect: 'mysql',
 });
 
 const starredAnime = sequelize.define('starred_animes', {
@@ -43,6 +43,7 @@ const starredAnime = sequelize.define('starred_animes', {
     defaultValue: null,
   }
 }, {
+  
   timestamps: false,
   foreignKey: 'user_id'
 });
@@ -50,4 +51,5 @@ const starredAnime = sequelize.define('starred_animes', {
 starredAnime.removeAttribute('id')
 starredAnime.belongsTo(User, { foreignKey: 'user_id' });
 starredAnime.belongsTo(Anime, { foreignKey: 'id' });
+starredAnime.sync();
 module.exports = starredAnime;

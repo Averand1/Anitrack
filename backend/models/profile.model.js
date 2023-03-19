@@ -6,7 +6,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
     dialect: 'mysql' /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
 });
 
-const Profile = sequelize.define('profile', {
+const Profile = sequelize.define('profiles', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -39,4 +39,5 @@ const Profile = sequelize.define('profile', {
   
   
 Profile.belongsTo(User, { foreignKey: 'user_id' });  
+Profile.sync()
 module.exports = Profile; 
