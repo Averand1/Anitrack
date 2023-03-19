@@ -7,7 +7,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
     dialect: 'mysql'
 });
 
-const User = sequelize.define('user', {
+const User = sequelize.define('users', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -50,5 +50,7 @@ User.prototype.validPassword = function(password, salt, userPassword) {
   const hash = bcrypt.hashSync(password, salt);
   return bcrypt.compareSync(userPassword, hash);
 }
+
+User.sync()
 
 module.exports = User;
