@@ -7,7 +7,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
     dialect: 'mysql' /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
 });
 
-const Anime = sequelize.define('anime', {
+const Anime = sequelize.define('animes', {
     'id' : {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -22,5 +22,7 @@ const Anime = sequelize.define('anime', {
 }, {
     timestamps: false
 })
+
+Anime.sync()
 
 module.exports = Anime;

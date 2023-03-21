@@ -60,3 +60,14 @@ Dependies used in this project:
 * mysql2
 * nodemon
 * axios
+
+
+
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Recent activity [![Time period](https://images.repography.com/35389438/Averand1/Anitrack/recent-activity/IJrwAYBNOuXIJBkIryNyLWjY_wzdJiaI6TzcF4Hs7Y8/sz98meqS6No5nxeybcJphoHmug95CosuspO8cZbmdZU_badge.svg)](https://repography.com)
+[![Timeline graph](https://images.repography.com/35389438/Averand1/Anitrack/recent-activity/IJrwAYBNOuXIJBkIryNyLWjY_wzdJiaI6TzcF4Hs7Y8/sz98meqS6No5nxeybcJphoHmug95CosuspO8cZbmdZU_timeline.svg)](https://github.com/Averand1/Anitrack/commits)
+[![Issue status graph](https://images.repography.com/35389438/Averand1/Anitrack/recent-activity/IJrwAYBNOuXIJBkIryNyLWjY_wzdJiaI6TzcF4Hs7Y8/sz98meqS6No5nxeybcJphoHmug95CosuspO8cZbmdZU_issues.svg)](https://github.com/Averand1/Anitrack/issues)
+[![Pull request status graph](https://images.repography.com/35389438/Averand1/Anitrack/recent-activity/IJrwAYBNOuXIJBkIryNyLWjY_wzdJiaI6TzcF4Hs7Y8/sz98meqS6No5nxeybcJphoHmug95CosuspO8cZbmdZU_prs.svg)](https://github.com/Averand1/Anitrack/pulls)
+[![Trending topics](https://images.repography.com/35389438/Averand1/Anitrack/recent-activity/IJrwAYBNOuXIJBkIryNyLWjY_wzdJiaI6TzcF4Hs7Y8/sz98meqS6No5nxeybcJphoHmug95CosuspO8cZbmdZU_words.svg)](https://github.com/Averand1/Anitrack/commits)
+[![Top contributors](https://images.repography.com/35389438/Averand1/Anitrack/recent-activity/IJrwAYBNOuXIJBkIryNyLWjY_wzdJiaI6TzcF4Hs7Y8/sz98meqS6No5nxeybcJphoHmug95CosuspO8cZbmdZU_users.svg)](https://github.com/Averand1/Anitrack/graphs/contributors)
+[![Activity map](https://images.repography.com/35389438/Averand1/Anitrack/recent-activity/IJrwAYBNOuXIJBkIryNyLWjY_wzdJiaI6TzcF4Hs7Y8/sz98meqS6No5nxeybcJphoHmug95CosuspO8cZbmdZU_map.svg)](https://github.com/Averand1/Anitrack/commits)
+
