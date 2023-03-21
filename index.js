@@ -17,9 +17,19 @@ const app = express();
 
 app.use(sessionMiddleware)
 // enable CORS
-app.use(cors({
+const corsOpts = {
   origin: '*',
-}));
+
+  methods: [
+    'GET',
+    'POST',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
+app.use(cors(corsOpts));
 
 // parse application/json
 app.use(bodyParser.json());

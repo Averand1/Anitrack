@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Signup = () => {
-  const BASE_URL = `http://anime-list-service.onrender.com/api/`
+  const BASE_URL = `http://anime-list-service.onrender.com/api`
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
