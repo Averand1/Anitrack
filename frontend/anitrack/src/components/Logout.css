@@ -1,0 +1,11 @@
+.logout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+  
+.logout-message {
+    color: red;
+    margin-left: 10px;
+}
