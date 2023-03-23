@@ -40,3 +40,28 @@
 .read-the-docs {
   color: #888;
 }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.nav-button {
+  font-size: 16px;
+  padding: 10px;
+  margin-right: 10px;
+  border: none;
+  background-color: #2196f3;
+  color: #fff;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  background-color: #0d47a1;
+}
+
+.component-container {
+  margin-top: 50px;
+}
