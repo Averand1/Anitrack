@@ -4,10 +4,12 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import '../src/App.css';
 
+
 const App = () => {
   const [showSignup, setShowSignup] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSignupClick = () => {
     setShowSignup(true);
@@ -25,19 +27,27 @@ const App = () => {
     setShowSignup(false);
     setShowLogin(false);
     setShowLogout(true);
+    setIsLoggedIn(false);
+  };
+
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+    setShowSignup(false);
+    setShowLogin(false);
+    setShowLogout(true);
   };
 
   return (
     <div className="app-container">
       <nav>
-        <button className="nav-button" onClick={handleSignupClick}>Signup</button>
-        <button className="nav-button" onClick={handleLoginClick}>Login</button>
-        <button className="nav-button" onClick={handleLogoutClick}>Logout</button>
+        {!isLoggedIn && <button className="nav-button" onClick={handleSignupClick}>Signup</button>}
+        {!isLoggedIn && <button className="nav-button" onClick={handleLoginClick}>Login</button>}
+        {isLoggedIn && <button className="nav-button" onClick={handleLogoutClick}>Logout</button>}
       </nav>
       <div className="component-container">
         {showSignup && <Signup />}
-        {showLogin && <Login />}
-        {showLogout && <Logout />}
+        {showLogin && <Login onLoginSuccess={handleLoginSuccess} />}
+        <Logout/>
       </div>
     </div>
   );
